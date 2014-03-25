@@ -1,13 +1,13 @@
-/* dummy */     
-define(['underscore', 'jquery', 'backbone'], function(_, $, Backbone) {
+/* dummy */
+define(['underscore', 'jquery', 'backbone'], function (_, $, Backbone) {
     "use strict";
-    
+
     return Backbone.View.extend({
 
         _editable: true,
 
-        tagName:  'div',
-        
+        tagName: 'div',
+
         template: _.template([
             '<label> Message: </label>' +
             '<input name="message" type="text" value="<%= message %>" />' +
@@ -21,30 +21,30 @@ define(['underscore', 'jquery', 'backbone'], function(_, $, Backbone) {
         },
 
         initialize: function () {
-            this.render();            
+            this.render();
             this.listenTo(this.model, "change", this.render);
-                
+
             this.$el.find("input[name='message']").val(this.model.get("message"));
 
         },
 
-        render: function() {
-            if( this._editable ) {
+        render: function () {
+            if (this._editable) {
                 // we are no changing the message manually
                 this.$el.html(this.template(this.model.attributes));
             }
             return this;
         },
 
-        updateModel: function( event ) {
-            
+        updateModel: function (event) {
+
             this._editable = false;
-            
+
             var _$el = $(event.currentTarget);
-            this.model.set( _$el.attr("name"), _$el.val() );
+            this.model.set(_$el.attr("name"), _$el.val());
         },
-        
-        enableEdit: function() {
+
+        enableEdit: function () {
             this._editable = true;
         }
 
